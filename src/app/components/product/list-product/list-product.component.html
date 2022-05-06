@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    List Products
+                </h4>
+            </div>
+            <div class="card-body">
+                <ng-container *ngIf="(products$ | async) as result " [ngSwitch]="result.dataState ">
+                    <ng-container *ngSwitchCase="DataStateEnum.LOADING ">
+                        LOADING ....
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="DataStateEnum.ERROR ">
+                        <div class="alert-danger ">
+                            {{ result.errorMessage }}
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="DataStateEnum.LOADED ">
+                        <table class="table table-sm table-hover table-bordered ">
+                            <thead class="text-center ">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Available</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center ">
+                                <tr *ngFor="let p of result.data ">
+                                    <td>{{ p.id }}</td>
+                                    <td>{{ p.productName }}</td>
+                                    <td>{{ p.price }}.00 $</td>
+                                    <td>{{ p.available }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger " type="button " (click)="onDeleted(p.id) ">
+                                            <span class="fa fa-trash-o "></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

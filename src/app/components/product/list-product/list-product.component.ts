@@ -49,4 +49,8 @@ export class ListProductComponent implements OnInit {
         this.getProducts()
         );
   }
+
+  onAddNewProduct() {
+
+  }
 }
